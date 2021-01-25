@@ -13,36 +13,42 @@ import ScanQR from './src/components/ScanQR';
 
 const App = () => {
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [openScanner, setOpenScanner] = useState(false);
+  const [visibleGenerateQR, setVisibleGenerateQR] = useState(false);
+  const [visibleScannerQR, setVisibleScannerQR] = useState(false);
+  const [QRmessage, setQRmessage] = useState('');
 
   const openQRScanner = () => {
-    setIsVisible(false);
-    setOpenScanner(true);
+    setVisibleGenerateQR(false);
+    setVisibleScannerQR(true);
   };
 
   const openQRGenerator = () => {
-    setOpenScanner(false);
-    setIsVisible(true);
+    setVisibleScannerQR(false);
+    setVisibleGenerateQR(true);
   };
   
   const CloseQRGenerator = () => {
-    setIsVisible(false);
+    setVisibleGenerateQR(false);
+  };
+  const CloseQRScanner = (message) => {
+    console.log("here, m = " + message)
+    setVisibleScannerQR(false);
+    setQRmessage(message);
   };
 
   const showComponent = () => {
-    if (openScanner) {
+    if (visibleScannerQR) {
       return (
         <View style={{flex: 1}}>
-          <ScanQR />
+          <ScanQR CloseQRScanner={CloseQRScanner}/>
         </View>
       );
     }
     else {
       return (
         <View style={{ flex: 1 }}>
-          <QARbilities openQRGenerator={openQRGenerator} openQRScanner={openQRScanner}/>
-          <GeneratorQR visible={isVisible} CloseQRGenerator={CloseQRGenerator} value="QR Code ;)" />
+          <QARbilities openQRGenerator={openQRGenerator} openQRScanner={openQRScanner} QRmessage={QRmessage}/>
+          <GeneratorQR visible={visibleGenerateQR} CloseQRGenerator={CloseQRGenerator} value="QR Code ;)" />
         </View>
       );
     }

@@ -1,7 +1,12 @@
 import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
-    text: {
-        fontSize: 18
+    buttonTouchable: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    image: {
+        width: 70,
+        height: 70,
     }
 });
